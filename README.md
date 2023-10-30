@@ -26,18 +26,22 @@ docker tag dj_app_y8c:latest rostwik/dj_app_y8c:main
 ```commandline
 docker push rostwik/dj_app_y8c:main
 ```
-## Переменные окружения
+## Разворачиваем приложение
 
-Образ с Django считывает настройки из переменных окружения:
+```
+kubectl apply -f configmap.yaml
+```
+```
+kubectl apply -f django_deploy.yaml
+```
 
-`SECRET_KEY` -- обязательная секретная настройка Django. Это соль для генерации хэшей. Значение может быть любым, важно лишь, чтобы оно никому не было известно. [Документация Django](https://docs.djangoproject.com/en/3.2/ref/settings/#secret-key).
-
-`DEBUG` -- настройка Django для включения отладочного режима. Принимает значения `TRUE` или `FALSE`. [Документация Django](https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-DEBUG).
-
-`ALLOWED_HOSTS` -- настройка Django со списком разрешённых адресов. Если запрос прилетит на другой адрес, то сайт ответит ошибкой 400. Можно перечислить несколько адресов через запятую, например `127.0.0.1,192.168.0.1,site.test`. [Документация Django](https://docs.djangoproject.com/en/3.2/ref/settings/#allowed-hosts).
-
-`DATABASE_URL` -- адрес для подключения к базе данных PostgreSQL. Другие СУБД сайт не поддерживает. [Формат записи](https://github.com/jacobian/dj-database-url#url-schema).
-
+Если данные в configmap.yaml изменились необходимо выполнить следующие команды:
+```
+kubectl apply -f configmap.yaml
+```
+```
+kubectl rollout restart deployment django-deployment
+```
 
 ## Удаление сессий
 ```
@@ -49,16 +53,6 @@ kubectl apply -f django_clearsessions_job.yaml
 ```
 kubectl apply -f django_migrate_job.yaml
 ```
+## Пример сайта
 
-## Запуск postgres с помощью helm chart
-
-- Установить [helm](https://github.com/helm/helm/releases)
-- Не забудьте прописать путь до helm в системную переменную PATH
-- Запустить release of postgresql chart
-```
-helm install my-release oci://registry-1.docker.io/bitnamicharts/postgresql
-```
-
-- При запуске вы увидите подробные инструкции, как подключиться к БД
-
-
+Сайт доступен по [https://edu-dreamy-goodall.sirius-k8s.dvmn.org/](https://edu-dreamy-goodall.sirius-k8s.dvmn.org/) 
