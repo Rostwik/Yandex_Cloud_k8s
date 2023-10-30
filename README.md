@@ -1,6 +1,8 @@
 # Django site
 
 Докеризированный сайт на Django для экспериментов с Yandex Cloud.
+Выделен домен edu-dreamy-goodall.sirius-k8s.dvmn.org.
+[Веб-консоль YC](https://console.cloud.yandex.ru/folders/b1gtcctl0mkamhmvoq79/managed-kubernetes/cluster/cat528346gdueh53ts39/overview])
 
 ## Собрать образ и залить в Docker Hub
 

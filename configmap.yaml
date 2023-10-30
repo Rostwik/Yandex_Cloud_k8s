@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: django-configmap
+data:
+  SECRET_KEY: "somespecial"
+  DATABASE_URL: "postgres://user:pass@host:port/db" # url подключения к БД
+  DEBUG: "FALSE"
+  ALLOWED_HOSTS: "*"
